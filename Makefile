@@ -2,14 +2,17 @@ module_name = test
 
 
 
-sim_sourcefiles = main.c \
-	dsp_block.c
+OBJS = main.o \
+	dsp_block.o
 
-sim_outfile = $(module_name)_jk
+EXECUTABLE = $(module_name)_jk
 
 sim_flags = -ljack -llo -D ARCH_LINUX=1
 
 all:
-	touch $(sim_outfile)
-	rm ./$(sim_outfile)
-	gcc $(sim_sourcefiles) $(sim_flags) -o $(sim_outfile) -g
+	touch $(EXECUTABLE)
+	rm ./$(EXECUTABLE)
+	gcc $(OBJS) $(sim_flags) -o $(EXECUTABLE) -g
+
+clean:
+	rm $(OBJS) $(EXECUTABLE)

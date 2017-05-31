@@ -4,9 +4,13 @@
 #include <math.h>
 #include <string.h> /* for atoi */
 
-// Jack headers
-#include <jack/jack.h>
+#include <jack/jack.h> // Jack headers
+// #include <lo/lo.h> // Liblo headers
 
+// File headers
+#include "main.h"
+
+// private variables
 jack_client_t *client;
 
 jack_default_audio_sample_t *delay_line;
@@ -18,7 +22,6 @@ jack_port_t *output_ports[OUT_PORTS];
 
 
 // private fns
-module_process_frame();
 
 int32_t process_block (jack_nframes_t nframes, void *arg)
 {
@@ -72,15 +75,20 @@ void jack_shutdown (void *arg)
 }
 
 // private declarations
-int32_t foo_handler(const uint8_t *path, const uint8_t *types, lo_arg ** argv,
+/*int32_t foo_handler(const uint8_t *path, const uint8_t *types, lo_arg ** argv,
 						int32_t argc, void *data, void *user_data);
 int32_t generic_handler(const uint8_t *path, const uint8_t *types, lo_arg ** argv,
-						int32_t argc, void *data, void *user_data);
+						int32_t argc, void *data, void *user_data);*/
 void error(int32_t num, const uint8_t *m, const uint8_t *path);
 
 // exported fns
 int32_t main (int32_t argc, uint8_t *argv[]) {
 
+
+	const char **ports;
+	const char *client_name = "jkkk";
+	const char *server_name = NULL;
+	
 	jack_options_t options = JackNullOption;
 	jack_status_t status;
 
@@ -144,12 +152,12 @@ int32_t main (int32_t argc, uint8_t *argv[]) {
 		exit (1);
 	}
 
-#ifdef WIN32
+/*#ifdef WIN32
 	Sleep (-1);
 #else
 	sleep (-1);
 #endif
-
+*/
 	/* this is never reached but if the program
 		had some other way to exit besides being killed,
 		they would be important to call.
@@ -159,7 +167,7 @@ int32_t main (int32_t argc, uint8_t *argv[]) {
 	exit (0);
 }
 
-int32_t generic_handler(const uint8_t *path, const uint8_t *types, lo_arg ** argv,
+/*int32_t generic_handler(const uint8_t *path, const uint8_t *types, lo_arg ** argv,
 						int32_t argc, void *data, void *user_data)
 {
 	printf("path: <%s>\n", path);
@@ -179,7 +187,7 @@ int32_t foo_handler(const uint8_t *path, const uint8_t *types, lo_arg ** argv,
 	printf("received param %d %d\n", argv[0]->i, argv[1]->i);
 	module_set_param(argv[0]->i, argv[1]->i);
 	return 0;
-}
+}*/
 
 
 void error(int num, const uint8_t *msg, const uint8_t *path)
