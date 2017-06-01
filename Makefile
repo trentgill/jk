@@ -1,18 +1,21 @@
 module_name = test
 
-
+CC = gcc
 
 OBJS = main.o \
 	dsp_block.o
 
 EXECUTABLE = $(module_name)_jk
 
-sim_flags = -ljack -llo -D ARCH_LINUX=1
+CFLAGS = -ljack -D ARCH_LINUX=1
 
-all:
+%.o: %.c
+	$(CC) -ggdb $(CFLAGS) -c $< -o $@
+
+all: $(OBJS)
 	touch $(EXECUTABLE)
 	rm ./$(EXECUTABLE)
-	gcc $(OBJS) $(sim_flags) -o $(EXECUTABLE) -g
+	$(CC) $(OBJS) $(CFLAGS) -o $(EXECUTABLE) -g
 
 clean:
 	rm $(OBJS) $(EXECUTABLE)
