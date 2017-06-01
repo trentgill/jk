@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-// #include <main.h>
+#include <stdint.h>
 
 #ifdef SINGLE_SAMPLE
 	float module_process_frame(float in);
