@@ -82,12 +82,12 @@ int32_t generic_handler(const uint8_t *path, const uint8_t *types, lo_arg ** arg
 void error(int32_t num, const uint8_t *m, const uint8_t *path);
 
 // exported fns
-int32_t main (int32_t argc, uint8_t *argv[]) {
-
-
+int32_t main (int32_t argc, uint8_t *argv[])
+{
 	const char **ports;
 	const char *client_name = "jkkk";
 	const char *server_name = NULL;
+
 	
 	jack_options_t options = JackNullOption;
 	jack_status_t status;
@@ -100,6 +100,7 @@ int32_t main (int32_t argc, uint8_t *argv[]) {
 
 	// open a client connection to the JACK server
 	client = jack_client_open (client_name, options, &status, server_name);
+	printf("START!\n");
 	if (client == NULL) {
 		fprintf (stderr, "jack_client_open() failed, status = 0x%2.0x\n", status);
 	    if (status & JackServerFailed) {
