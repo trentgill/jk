@@ -3,11 +3,11 @@ module_name = test
 CC = gcc
 
 OBJS = main.o \
-	dsp_block.o
+       dsp_block.o
 
 EXECUTABLE = $(module_name)_jk
 
-CFLAGS = -ljack -D ARCH_LINUX=1
+CFLAGS = -lm -lc -ljack -lsoundio -D ARCH_LINUX=1
 
 %.o: %.c
 	$(CC) -ggdb $(CFLAGS) -c $< -o $@
