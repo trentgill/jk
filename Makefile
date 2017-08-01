@@ -1,21 +1,38 @@
 module_name = test
 
+WRLIB=../wrLib
+WRDSP=../wrDSP
+
 CC = gcc
+LD = gcc
 
-OBJS = main.o \
-       dsp_block.o
+SRC = main.c \
+      dsp_block.c \
+      $(WRLIB)/wrMath.c
 
-EXECUTABLE = $(module_name)_jk
+OBJDIR = .
+OBJS = $(SRC:%.c=$(OBJDIR)/%.o)
 
-CFLAGS = -lm -lc -ljack -lsoundio -D ARCH_LINUX=1
+EXECUTABLE = $(module_name)
 
-%.o: %.c
-	$(CC) -ggdb $(CFLAGS) -c $< -o $@
+INCLUDES = \
+    -I$(WRLIB)/
+
+CFLAGS = -lm -lc -lsoundio -D ARCH_LINUX=1
+CFLAGS += $(DEFS) -I. -I./ $(INCLUDES)
+LDFLAGS =
+LIBS = -lm -lc -lsoundio
 
 all: $(OBJS)
 	touch $(EXECUTABLE)
 	rm ./$(EXECUTABLE)
-	$(CC) $(OBJS) $(CFLAGS) -o $(EXECUTABLE) -g
+	$(CC) $(LIBS) $(OBJS) $(CFLAGS) -o $(EXECUTABLE) -g
+
+#	$(LD) -g $(LDFLAGS) $(OBJS) $(LIBS) -o $@
+
+%.o: %.c
+	$(CC) -ggdb $(CFLAGS) -c $< -o $@
+
 
 clean:
 	rm $(OBJS) $(EXECUTABLE)
