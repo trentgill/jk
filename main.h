@@ -1,8 +1,6 @@
 #pragma once
 
-// uncomment to use single-sample processing
-// otherwise we assume we're processing a full block natively
-#define SINGLE_SAMPLE
+#include "dsp_block.h"
 
 #define IN_PORTS 1
 #define OUT_PORTS 1
