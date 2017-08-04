@@ -61,7 +61,6 @@ static void write_callback(struct SoundIoOutStream *outstream, int frame_count_m
     double seconds_per_frame = 1.0 / float_sample_rate;
     struct SoundIoChannelArea *areas;
     int err;
-
     int frames_left = frame_count_max;
 
     for (;;) {

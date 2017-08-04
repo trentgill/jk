@@ -1,14 +1,15 @@
 module_name = test
 
 WRLIB=../wrLib
-WRDSP=../wrDSP
+WRDSP=../wrDsp
 
 CC = gcc
 LD = gcc
 
 SRC = main.c \
       dsp_block.c \
-      $(WRLIB)/wrMath.c
+      $(WRLIB)/wrMath.c \
+      $(WRDSP)/wrFilter.c
 
 OBJDIR = .
 OBJS = $(SRC:%.c=$(OBJDIR)/%.o)
@@ -16,7 +17,8 @@ OBJS = $(SRC:%.c=$(OBJDIR)/%.o)
 EXECUTABLE = $(module_name)
 
 INCLUDES = \
-    -I$(WRLIB)/
+    -I$(WRLIB)/ \
+    -I$(WRDSP)/
 
 CFLAGS = -lm -lc -lsoundio -D ARCH_LINUX=1
 CFLAGS += $(DEFS) -I. -I./ $(INCLUDES)
