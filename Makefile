@@ -9,7 +9,8 @@ LD = gcc
 SRC = main.c \
       dsp_block.c \
       $(WRLIB)/wrMath.c \
-      $(WRDSP)/wrFilter.c
+      $(WRDSP)/wrFilter.c \
+      $(WRDSP)/wrOscSine.c
 
 OBJDIR = .
 OBJS = $(SRC:%.c=$(OBJDIR)/%.o)
