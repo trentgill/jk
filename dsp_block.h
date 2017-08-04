@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#ifdef SINGLE_SAMPLE
-	float module_process_frame(float in);
-#else
-	void module_process_frame(float* in, float* out, uint16_t b_size);
-#endif
+void module_init( void );
+
+void module_process_frame(float* in, float* out, uint16_t b_size);

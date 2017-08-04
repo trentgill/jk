@@ -80,8 +80,12 @@ static void write_callback(struct SoundIoOutStream *outstream, int frame_count_m
 #ifdef SINGLE_SAMPLE /* sample-by-sample */
         for (int frame=0; frame < frame_count; frame++){
             for (int channel=0; channel<layout->channel_count; channel++){
-                write_sample( areas[channel].ptr, module_process_frame( NULL ) );
+                float in;
+                float out;
+                module_process_frame( &in, &out, 1 );
+                write_sample( areas[channel].ptr, out );
                 areas[channel].ptr += areas[channel].step;
+
             }
         }
 #else /* block process  */
@@ -263,6 +267,9 @@ int main(int argc, char **argv) {
         fprintf(stderr, "No suitable device format available.\n");
         return 1;
     }
+
+    // create structures / objects for child process
+    module_init();
 
     if ((err = soundio_outstream_open(outstream))) {
         fprintf(stderr, "unable to open device: %s", soundio_strerror(err));
